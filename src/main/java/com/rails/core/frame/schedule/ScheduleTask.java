@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class ScheduleTask {
@@ -48,16 +49,22 @@ public class ScheduleTask {
             admin.setUserName("admin");
             systemUserService.save(admin);
 
-            UserRole userRole = new UserRole();
-            userRole.setRole(StaticParams.USERROLE.ROLE_USER);
-            userRole.setUserId(1L);
-            userRoleService.save(userRole);
+            List<SystemUser> users = systemUserService.findAll();
 
-            UserRole adminRole = new UserRole();
-            adminRole.setRole(StaticParams.USERROLE.ROLE_ADMIN);
-            adminRole.setUserId(2L);
-            userRoleService.save(adminRole);
-
+            for(SystemUser userItem : users){
+                if(user.getUserName().equals("user")){
+                    UserRole userRole = new UserRole();
+                    userRole.setRole(StaticParams.USERROLE.ROLE_USER);
+                    userRole.setUserId(userItem.getId());
+                    userRoleService.save(userRole);
+                }
+                if(user.getUserName().equals("admin")){
+                    UserRole adminRole = new UserRole();
+                    adminRole.setRole(StaticParams.USERROLE.ROLE_ADMIN);
+                    adminRole.setUserId(userItem.getId());
+                    userRoleService.save(adminRole);
+                }
+            }
             logger.info("initialization finished.");
         } catch (Exception e) {
             logger.error(String.format("ERROR when initializing:%s", e));
