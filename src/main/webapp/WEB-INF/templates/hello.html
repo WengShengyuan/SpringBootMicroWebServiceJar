@@ -5,14 +5,14 @@
 
 <h1>hello</h1>
 <p>world</p>
-<p> this is a templet test <strong th:text = "${data}">data</strong></p>
+<p> this is a templet test <strong th:text="${data}">data</strong></p>
 <br></br>
 
 <p>username: <strong th:inline="text">[[${#httpServletRequest.remoteUser}]]</strong></p>
 
 
 <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
+    <input type="submit" value="Sign Out"/>
 </form>
 
 <img th:src="@{/img/img.jpg}" style="height:50px; width:100px"></img>
@@ -23,8 +23,8 @@
 <h2>----list-----</h2>
 <ul>
 
-<li th:each="item : ${list}" th:text="${item.col1}">
-</li>
+    <li th:each="item : ${list}" th:text="${item.col1}">
+    </li>
 
 </ul>
 
@@ -33,6 +33,7 @@
 function doLogout(){
 	alert('logging out');
 }
+
 
 </script>
 
